@@ -20,7 +20,21 @@
       
         <tags>
             
-            <tag> Windows, HTB, Active Directory, kerberos, hashcat, rpcclient, disckshadow, evil-winrm </tag>
+            <tag> Windows </tag>
+            
+            <tag> HTB </tag>
+            
+            <tag> Active Directory </tag>
+            
+            <tag> kerberos </tag>
+            
+            <tag> hashcat </tag>
+            
+            <tag> rpcclient </tag>
+            
+            <tag> disckshadow </tag>
+            
+            <tag> evil-winrm </tag>
             
         </tags>
       
