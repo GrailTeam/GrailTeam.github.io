@@ -13,7 +13,9 @@
       
       <categories>
           
-          <category> Windows, Active Directory </category>
+          <category> Windows </category>
+          
+          <category> Active Directory </category>
           
       </categories>
       
