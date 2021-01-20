@@ -193,7 +193,7 @@ while True:
                 print &#39;Oops.&#39;
         if count&gt;2:
         print flag</code></pre>
-<p>El código es igual que el del desafío [GuessKey](URL en nuestra web), la única diferencia esque esta vez no se imprime el valor de la variable key.</p>
+<p>El código es igual que el del desafío <a href="../../../../2021/01/16/GuessKey/">GuessKey</a>, la única diferencia esque esta vez no se imprime el valor de la variable key.</p>
 <h1 id="Elaborar-el-exploit"><a href="#Elaborar-el-exploit" class="headerlink" title="Elaborar el exploit"></a>Elaborar el exploit</h1><p>Esta vez no vale con elegir 0 de máscara e introducir la clave 3 veces seguidas porque no conocemos la clave. El truco está en dos puntos: la clave key no se reestablece tras cada modificación y la variable “q” en algún momento tomará el valor de la posición del 0 menos significativo en la clave “key” en binario. Sabiendo esto, podemos hacer un xor con 1 contínuamente, dejando a 1 todos los 0 de la clave, desde el menos significativo hasta el más significativo (de derecha a izquierda). Sabremos que ya hemos dejado toda la clave a 1 cuando al establecer el valor de “guess” a “2^64 - 1” el servidor nos responda con “Nice.” en vez de “Oops.”, en este punto solo tendremos que enviar 0 como máscara y el valor anterior como “guess” y ya obtendremos la flag: </p>
 <p><strong>exploit.py</strong></p>
 <pre><code class="python">#!/usr/bin/python3
