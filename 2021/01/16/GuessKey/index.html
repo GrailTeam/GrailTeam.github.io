@@ -196,7 +196,7 @@ while True:
 <p>Primero se genera una cave aleatoria “key” de 64 bits y se imprime por pantalla. Después se crea un array llamado “zeros” en el que se añaden las posiciones de los 0 en la clave “key” expresada en binario y se guardarán dos elementos aleatorios de “zeros” en las variables “p” y “q”. Se espera por STDIN un número que se guarda en la variable “mask”. Lo siguiente es asegurarse de que “p” es menor que “q” para poder hacer un bucle desde “p” hasta “q” para variar los bits de la clave “key” dentro de este rango (p-q), la modificación consiste en hacer un XOR con la variable “mask”. Por último se espera otro número por STDIN que se guardará en “guess”, para obtener la flag, “guess” ha de ser igual a “key” tres veces seguidas.</p>
 <h1 id="Elaborar-el-exploit"><a href="#Elaborar-el-exploit" class="headerlink" title="Elaborar el exploit"></a>Elaborar el exploit</h1><p>El problema es que no conocemos el rango de la clave que será modificado, pero como podemos elegir la máscara con la que se hará el XOR, si hacemos que esa máscara sea 0, no habremos modificado ningún bit de la clave entonces “guess == key”. El exploit sería así:</p>
 <p><strong>exploit.py</strong></p>
-<pre><code class="python3">#!/usr/bin/python3
+<pre><code class="python">#!/usr/bin/python3
 from pwn import *
 #p = process(&quot;./GuessKey.py&quot;)
 p = remote(&quot;52.163.228.53&quot;, 8080)
