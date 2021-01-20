@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="en" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GuessKey2 - GRAIL TEAM</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="GRAIL TEAM,"> 
+    <meta name="description" content="Autor: TonyTowers*CTF2021
+
+No hay descripción del desafío, solamente nos adjuntan un zip.
+
+
+Analiza,"> 
+    <meta name="author" content="GRAIL TEAM"> 
+    <link rel="alternative" href="atom.xml" title="GRAIL TEAM" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.bootcss.com/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+    
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">GRAIL TEAM</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="http://formacion.ctgrail.com">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">GuessKey2</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/img/cover.jpg) ">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/crypto"><b>「
+                    </b>CRYPTO<b> 」</b></a>
+                
+                January 16, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/01/16/GuessKey2/" title="GuessKey2" class="">GuessKey2</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>Words count</i>
+                    3.7k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
+                    3 mins.
+                </span>
+                
+                
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/xor-pwntools/" rel="tag">xor,pwntools</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><strong>Autor: TonyTowers</strong><br><code>*CTF2021</code></p>
+<blockquote>
+<p>No hay descripción del desafío, solamente nos adjuntan un zip.</p>
+</blockquote>
+<hr>
+<h1 id="Analizar-el-codigo"><a href="#Analizar-el-codigo" class="headerlink" title="Analizar el código"></a>Analizar el código</h1><p>El primer paso es analizar el código del archivo que nos adjuntan en el zip:</p>
+<p><strong>GuessKey.py</strong></p>
+<pre><code class="python">from random import randint
+import os
+from flag import flag
+N=64
+key=randint(0,2**N)
+# print key
+key=bin(key)[2:].rjust(N,&#39;0&#39;)
+count=0
+while True:
+        p=0
+        q=0
+        new_key=&#39;&#39;
+        zeros=[0]
+        for j in range(len(key)):
+                if key[j]==&#39;0&#39;:
+                        zeros.append(j)
+        p=zeros[randint(0,len(zeros))-1]
+        q=zeros[randint(0,len(zeros))-1]
+        try:
+                mask=int(raw_input(&quot;mask:&quot;))
+        except:
+                exit(0)
+        mask=bin(mask)[2:]
+        if p&gt;q:
+                tmp=q
+                q=p
+                p=tmp
+        cnt=0
+        for j in range(0,N):
+        for j in range(0,N):
+                if j in range(p,q+1):
+                        new_key+=str(int(mask[cnt])^int(key[j]))
+                else:
+                        new_key+=key[j]
+                cnt+=1
+                cnt%=len(mask)
+        key=new_key
+        try:
+                guess=int(raw_input(&quot;guess:&quot;))
+        except:
+                exit(0)
+        if guess==int(key,2):
+                count+=1
+                print &#39;Nice.&#39;
+        else:
+                count=0
+                print &#39;Oops.&#39;
+        if count&gt;2:
+        print flag</code></pre>
+<p>El código es igual que el del desafío [GuessKey](URL en nuestra web), la única diferencia esque esta vez no se imprime el valor de la variable key.</p>
+<h1 id="Elaborar-el-exploit"><a href="#Elaborar-el-exploit" class="headerlink" title="Elaborar el exploit"></a>Elaborar el exploit</h1><p>Esta vez no vale con elegir 0 de máscara e introducir la clave 3 veces seguidas porque no conocemos la clave. El truco está en dos puntos: la clave key no se reestablece tras cada modificación y la variable “q” en algún momento tomará el valor de la posición del 0 menos significativo en la clave “key” en binario. Sabiendo esto, podemos hacer un xor con 1 contínuamente, dejando a 1 todos los 0 de la clave, desde el menos significativo hasta el más significativo (de derecha a izquierda). Sabremos que ya hemos dejado toda la clave a 1 cuando al establecer el valor de “guess” a “2^64 - 1” el servidor nos responda con “Nice.” en vez de “Oops.”, en este punto solo tendremos que enviar 0 como máscara y el valor anterior como “guess” y ya obtendremos la flag: </p>
+<p><strong>exploit.py</strong></p>
+<pre><code class="python3">#!/usr/bin/python3
+from pwn import *
+#p = process(&quot;./GuessKey_Fix.py&quot;)
+p = remote(&quot;52.163.228.53&quot;, 8082)
+while True:
+    p.recvuntil(&quot;mask:&quot;)
+    p.send(&quot;1\n&quot;)
+    p.recvuntil(&quot;guess:&quot;)
+    p.send(&quot;18446744073709551615\n&quot;)
+
+    check=p.recvuntil(&quot;.&quot;)
+    print(check)
+    if(check==b&#39;Nice.&#39;):
+        p.recvuntil(&quot;mask:&quot;)
+        p.send(&quot;0\n&quot;)
+        p.recvuntil(&quot;guess:&quot;)
+        p.send(&quot;18446744073709551615\n&quot;)
+        p.recvuntil(&quot;mask:&quot;)
+        p.send(&quot;0\n&quot;)
+        p.recvuntil(&quot;guess:&quot;)
+        p.send(&quot;18446744073709551615\n&quot;)
+        p.recvuntil(&quot;Nice.\n&quot;)
+        print(p.recvuntil(&quot;&#125;&quot;))
+        p.close()
+        exit(0)
+</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/chengdu.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="https://res.cloudinary.com/tridiamond/image/upload/v1573019751/TriDiamond_logo_ui_xeublz.jpg" height=300 width=300></img>
+                    <p>GRAIL TEAM</p>
+                    <span>La calidad nunca es un accidente, siempre es resultado de un esfuerzo de la inteligencia (John Ruskiin)</span>
+                    <dl>
+                        <dd><a href="#" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="#" target="_blank"><span
+                                    class=" iconfont icon-twitter"></span></a></dd>
+                        <dd><a href="#" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">4 <p>Articles</p></a></li>
+                    <li><a href="/categories">4 <p>Categories</p></a></li>
+                    <li><a href="/tags">15 <p>Tags</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>Contents</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Analizar-el-codigo"><span class="toc-number">1.</span> <span class="toc-text">Analizar el código</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Elaborar-el-exploit"><span class="toc-number">2.</span> <span class="toc-text">Elaborar el exploit</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p class="copyright" id="copyright">
+        &copy; 2021
+        <span class="gradient-text">
+            GRAIL TEAM
+        </span>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+ 
+<script src="//cdn.bootcss.com/typed.js/2.0.10/typed.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/codemirror/5.48.4/codemirror.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/css/css.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/php/php.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+  
+<script src="//cdn.bootcss.com/codemirror/5.48.4/mode/python/python.min.js"></script>
+   
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.bootcss.com/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+
+<script>
+  function initialTyped() {
+    var typedTextEl = $('.typed-text');
+    if (typedTextEl && typedTextEl.length > 0) {
+      var typed = new Typed('.typed-text', {
+        strings: ['La calidad nunca es un accidente, siempre es resultado de un esfuerzo de la inteligencia (John Ruskiin)', 'Lo que creemos que ya sabemos es a menudo lo que previene que aprendamos (Claude Bernard)'],
+        typeSpeed: 90,
+        loop: true,
+        loopCount: Infinity,
+        backSpeed: 20,
+      });
+    }
+  }
+
+  if ($('.article-header') && $('.article-header').length) {
+    $(document).ready(function () {
+      initialTyped();
+    });
+  }
+</script>
+
+
+
+
+
+
+</html>
