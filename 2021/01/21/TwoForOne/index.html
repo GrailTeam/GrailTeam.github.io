@@ -5,17 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GuessKey2 - GRAIL TEAM</title>
+    <title>TwoForOne - GRAIL TEAM</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="GRAIL TEAM,"> 
-    <meta name="description" content="Autor: TonyTowers*CTF2021
-
-No hay descripción del desafío, solamente nos adjuntan un zip.
-
-
-Analiza,"> 
+    <meta name="description" content="
+  a0b51998618dfe55cca4e4ef8f580e256cfa335765143d46660ba9ab439380c0eeb8da3db83334b9dee763288d0961ec,"> 
     <meta name="author" content="GRAIL TEAM"> 
     <link rel="alternative" href="atom.xml" title="GRAIL TEAM" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -63,7 +59,7 @@ Analiza,">
     <div class="navigation animated fadeIn fast delay-1s">
         <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://grailteam.github.io">
         <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
-        <h3 class="subtitle">GuessKey2</h3>
+        <h3 class="subtitle">TwoForOne</h3>
         <div class="social">
             <!--        <div class="like-icon">-->
             <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -93,22 +89,22 @@ Analiza,">
                 <a href="/categories/crypto"><b>「
                     </b>CRYPTO<b> 」</b></a>
                 
-                January 16, 2021
+                January 21, 2021
             </p>
-            <h3 class="post-title animated fadeInDown"><a href="/2021/01/16/GuessKey2/" title="GuessKey2" class="">GuessKey2</a>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/01/21/TwoForOne/" title="TwoForOne" class="">TwoForOne</a>
             </h3>
             
             <p class="post-count animated fadeInDown">
                 
                 <span>
                     <b class="iconfont icon-text2"></b> <i>Words count</i>
-                    3.7k
+                    7.1k
                 </span>
                 
                 
                 <span>
                     <b class="iconfont icon-timer__s"></b> <i>Reading time</i>
-                    3 mins.
+                    6 mins.
                 </span>
                 
                 
@@ -116,7 +112,7 @@ Analiza,">
             </p>
             
             
-            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/pwntools/" rel="tag">pwntools</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/xor/" rel="tag">xor</a></li></ul>
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/htb-RSA-common-modulus/" rel="tag">htb, RSA, common-modulus</a></li></ul>
             
         </div>
     </div>
@@ -127,7 +123,7 @@ Analiza,">
         <div class="screen-gradient-content-inside">
             <div class="bold-underline-links screen-gradient-sponsor">
                 <p>
-                    <span class="animated fadeIn delay-1s"></span>
+                    <span class="animated fadeIn delay-1s">Este reto aun está activo en HackTheBox, por eso está cifrado con la flag.</span>
                 </p>
             </div>
         </div>
@@ -137,92 +133,18 @@ Analiza,">
 <div class="article">
     <div class='main'>
         <div class="content markdown animated fadeIn">
-            <p><strong>Autor: TonyTowers</strong><br><code>*CTF2021</code></p>
-<blockquote>
-<p>No hay descripción del desafío, solamente nos adjuntan un zip.</p>
-</blockquote>
-<hr>
-<h1 id="Analizar-el-codigo"><a href="#Analizar-el-codigo" class="headerlink" title="Analizar el código"></a>Analizar el código</h1><p>El primer paso es analizar el código del archivo que nos adjuntan en el zip:</p>
-<p><strong>GuessKey.py</strong></p>
-<pre><code class="python">from random import randint
-import os
-from flag import flag
-N=64
-key=randint(0,2**N)
-# print key
-key=bin(key)[2:].rjust(N,&#39;0&#39;)
-count=0
-while True:
-        p=0
-        q=0
-        new_key=&#39;&#39;
-        zeros=[0]
-        for j in range(len(key)):
-                if key[j]==&#39;0&#39;:
-                        zeros.append(j)
-        p=zeros[randint(0,len(zeros))-1]
-        q=zeros[randint(0,len(zeros))-1]
-        try:
-                mask=int(raw_input(&quot;mask:&quot;))
-        except:
-                exit(0)
-        mask=bin(mask)[2:]
-        if p&gt;q:
-                tmp=q
-                q=p
-                p=tmp
-        cnt=0
-        for j in range(0,N):
-        for j in range(0,N):
-                if j in range(p,q+1):
-                        new_key+=str(int(mask[cnt])^int(key[j]))
-                else:
-                        new_key+=key[j]
-                cnt+=1
-                cnt%=len(mask)
-        key=new_key
-        try:
-                guess=int(raw_input(&quot;guess:&quot;))
-        except:
-                exit(0)
-        if guess==int(key,2):
-                count+=1
-                print &#39;Nice.&#39;
-        else:
-                count=0
-                print &#39;Oops.&#39;
-        if count&gt;2:
-        print flag</code></pre>
-<p>El código es igual que el del desafío <a href="../../../../2021/01/16/GuessKey/">GuessKey</a>, la única diferencia esque esta vez no se imprime el valor de la variable key.</p>
-<h1 id="Elaborar-el-exploit"><a href="#Elaborar-el-exploit" class="headerlink" title="Elaborar el exploit"></a>Elaborar el exploit</h1><p>Esta vez no vale con elegir 0 de máscara e introducir la clave 3 veces seguidas porque no conocemos la clave. El truco está en dos puntos: la clave key no se reestablece tras cada modificación y la variable “q” en algún momento tomará el valor de la posición del 0 menos significativo en la clave “key” en binario. Sabiendo esto, podemos hacer un xor con 1 contínuamente, dejando a 1 todos los 0 de la clave, desde el menos significativo hasta el más significativo (de derecha a izquierda). Sabremos que ya hemos dejado toda la clave a 1 cuando al establecer el valor de “guess” a “2^64 - 1” el servidor nos responda con “Nice.” en vez de “Oops.”, en este punto solo tendremos que enviar 0 como máscara y el valor anterior como “guess” y ya obtendremos la flag: </p>
-<p><strong>exploit.py</strong></p>
-<pre><code class="python">#!/usr/bin/python3
-from pwn import *
-#p = process(&quot;./GuessKey_Fix.py&quot;)
-p = remote(&quot;52.163.228.53&quot;, 8082)
-while True:
-    p.recvuntil(&quot;mask:&quot;)
-    p.send(&quot;1\n&quot;)
-    p.recvuntil(&quot;guess:&quot;)
-    p.send(&quot;18446744073709551615\n&quot;)
-
-    check=p.recvuntil(&quot;.&quot;)
-    print(check)
-    if(check==b&#39;Nice.&#39;):
-        p.recvuntil(&quot;mask:&quot;)
-        p.send(&quot;0\n&quot;)
-        p.recvuntil(&quot;guess:&quot;)
-        p.send(&quot;18446744073709551615\n&quot;)
-        p.recvuntil(&quot;mask:&quot;)
-        p.send(&quot;0\n&quot;)
-        p.recvuntil(&quot;guess:&quot;)
-        p.send(&quot;18446744073709551615\n&quot;)
-        p.recvuntil(&quot;Nice.\n&quot;)
-        print(p.recvuntil(&quot;&#125;&quot;))
-        p.close()
-        exit(0)
-</code></pre>
-
+            <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Esta flag no es correcta." data-whm="Esta flag no es correcta.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="8e14c1af3d21783983feace4804d0bb0122358e1cfcc40c35726985ccf5eafd3">a0b51998618dfe55cca4e4ef8f580e256cfa335765143d46660ba9ab439380c0eeb8da3db83334b9dee763288d0961eceb6be35a4525d120e2cd66579854e5ecc64b522f2981901e2af4ab8528c02e82221a315b82181ce0f46ed0abe9a5ad0a055e3a9cea73732a4518904146a6e82eedbdbdd76441c34ab6413b7502e13d8f095dd30f97d14f1b0904246ef774354aacc9d997a2b12c955ac84cd218bfddfc60593be29033a9a3d5c0d229bcda024c2a3396e80f71b81da194e74dfd996f19688f9719887b99d387a6c559e2e0c3afe09c15156e9e0559c99b7f1273259ea819fa96863af1e8ef8fd26fb17d61a04d377fc2b095eb553c9bd36abc0c3b08dca53c577501bb78d15ed092636774f22bd0b6100c1700728e912f6b81d89742861797af812e801bc1f838f8d0d902fb2531500841a35e3451a31e5138ff7de815126aae093ea50e407c9d492356bb90e4b8f74bd9d4fca5fcd120c149389bbacec8678635d60abaeb62b9605228ccebe6c05c41b4a230c5b527a22b3436137aba8242564968723a8561fac10afeceb0ad2f61739cddcacf3bb6fdf8418b96b36048c55100019f46bab3f770eb5de2a2c142e5622a5dbad34048957a915fd879e5ab56591496bb082e7eafac31926ee948268ce22a59cbbab24e1ff3f4ef0be4620290f45c1e482ef9cbde1fc38b724e102bbc5f510c710c6a4a16b18937988e1303edb208e608c07078254096e655e74fd8037940d6d5d41f6d92050a4b2e3e8c36f5521fe13e7f447b503f1585eb6b2266dd7409298ef198a729c9cfdcac79f4becda27f47802ddd7d25bb6d9ffa5b6ced7476aa85eb104fc8c4392ed62aaa8b90476290fa4b1c66739b68825564e259659139dd62e206160bd2fc13961b184add77fb3344ca675b4d5544ce30d670f7707f5ade475d0c5783bb93294606e1527d46d99ca2d124d20c4bb73113c58f39e9391fe0be8749a5a9226161f098f4d33df97ec24a6a182d34b97591599ddaad4d2b2085070c4977d3edb664a0153db283c3168c312710e15f788b1a172806f76f9b9cf98208d383d3377f9c2f48bb2540286b614c7d5a2c913057476167b8b55ad46fc05afe610f28c285a21c30fce1ebbb8a929691dbc69b8a4517f9288e4ae73218c2d3663cebc949d8d98b51c2bc41b6cd6880fdbe70c7e9eb8b702eaf8c2311680455f2979aa6b94da39196c8ed458aa75f6ee7643a5493342681233952122c9ada58e51a237f6454402dece2ed656792199c21e4000bb77c7134484839b5efd187179188854bb7b7e425368ae2111e022ace6c0a401dc07cc7bfe67ed56234d3389f14922ed1cd17053927ef3406cc878a42c3754acb2fc6c87899483143c5a13174672f694304f04f028a953838dd6722c6394d6a7103cf900fd18fd8fa00942fbc8432656f44f9d543312b82083c94f11f948c0da3f9ca952eff77de590822b72de4bc4c850465d622da243e6b6ce952c8aab04425c9df60e8f456bfd20495c7a667378b758a6ac9a745c12848d5b57ca0d2b5178b09811699e9e39d1520b1faea49c70a3cac1714844ddf49d974d3c712af85a71e18530fb7e527924eb582f2d077f2344073923bb10a46c320dc9168ebfe1a8324d53c1ce126839af7f662b0b00a7e7622a909f272e23dc7e7ea5ea064adc11858f70715ee5c3eef70afd39b64ced01bb15121390efe38bebbb4f3eaec5c3410b049278f6edce951477152bb3c90a9511cd54e7ce67b4a8a96ce33a48b2eb40570db573a62ca22766be8a2a6338eb9c2b29a4714bc874be18a409e4772a580de86f80e6c1e0d6b9ec28b5ac4a0c40cff9a353e56f7249a2b47b32b4881a4944506239585cbe6a76f8e393c103028c41e26ed6532cf4d06f563869cfe8ec4392c62ee1daf319aab8d6cda3f9b76317b16b8625afeb616f759ee6ff366d23000bc9bc51739e5b586fe1f7e2f0a0d878bc3434e16352a0c9db4aca549a10629c746dac2bf68925fb29cf5525dd1697ee74a82093c24755f2ce1d2f48eae0a959b80041b2872ced7cea173dc8774ca50fca083e14a957886993ecbe53b8720d993ecbd323734af0416cd354feb4acc65281dbb2f78f5a11a6413bc49adad4da8c507a75d6e3577c2e33696cbacef503ebccf77f3ead53252cbe427ddc7bf9d424abceb10c55f481ab78529abe2ed250a93c3d888bc21c266bc46a4f2031d3505a699879e6e0a35c62214eed380051877af912d1d4910699a246ce847c97171940c35ae67b51e0255d457deba130ddbe6d94e379338bb5ebb283bfc70776ed32ec045a5a0036b7a86ff24abcf2ba31d3b60589dbc3b168820c93f2285aa5cfca6be142af8cb8fb2da8333ee329bc50f9ddaef02a8c6b4af6acbf877e6fe9dda0dd73f3fc3307c5263c8ce0ceb91d4e313b89564924cad0d23463c80e35fc4298977a21b665fef23af67a3ca7081c10d649f3a4b081c58850266916215ba9108d057be1411c44e1b21e87f951a3cf080b484cef35aed10f2f2b366df1b522094839c1d48d8c6952ed14c08fe0d4ec7b5d3cd5ee1ee0aa0bf9acdcab370bb4470273e6e14e44732f045279f84ebf56d4cb64dba6d3d2d3f829a3010ee37bcc0e0dda1c75729f4f1a814e7bd7e5a23cd78eae052109ad06f58080f101a84a49d06fd07c216f75706a892479f54e6d486b3dd4962d02ba7574810452102693473162d7c6397bad25bb0e12a6b310333ea7fcbf01a78093de47ef0f1bfc3798906ff7f752d45abe332fd68fbe3772f1feecfae7391d79d822ac84793f48b469404448948c29c6d2ea2e009150a245eb0d3a28889db8b28e0d068fae5fbc396dfe6aac990755e26b829589aaa2984d6c1b5d90b8da0446e2adfc69e0b532d499d30b0ade1e8af0db5bb1ae766db8f77e54a8b17fe1bc9b5f2a5a586142239a1fb66f40726051323670ae65f711f549c06e6be03c0bd38dad0a14e62593f3e8db0c3134c21a2f2afa83eb695a331a339d46ff91641b982dfc710e9f2cf42ab7c280ca3c2708ba1848aa96bb5686091df8ee80a0927472fd12560acd41356a7dfb6d49036db0e23b0a382df521e2ed0113bb0ad7f5aae96c5494a4725d4559de43e1a72b14f99ce70b1254ba6829a41e11490c67551243cbba7e3604dbdd4d95f4735f433f3506c5334c2887dc5e20b9d37a287114627eb21e7f18dc2c16ae0afed6c47eb23d321d3119c299ba7081bce65cba977cdfc8663c809298527e605bb417c6f7d3a7ac60e3f7b7dce80aeb3025a304c5acf6431ea6549c24dc260c58884d1169f86d9e5b31b6cd55e66684c35dadcbcbba441103304f75a0f7d0f2ce03689be3174d6cfcf5c0e917779d516953af564f85dfc84e1e5fdbdebebf1539d03fcc46d010251120bd6a56928a7ec4f72e5dad31df0012e0c923af33514cb65e54a1a8b31c027dcc4e44e4d9c980bc6fff5f1e14fed716abc9edd4a1cf801ea8e3e323821a6cd0f9851c33e5d5ec48a5a639aeacf756da5332f4d8c2de10285390bc2834852009ce9f367ac0c7bbd5ab71034099c8b2f6d228ff9cc52ad8363480c9dea0bc057afa023080523a62d9d16229133156a49dd6a0791c732c1393255b7578a369e5fabdfe355d7627928ec95986e3681e9ce7d32855db01ce30bf7119329dcccc691228c7181a72344ff56ee2d19e006263dfe91ff7b4ff31fd5871a51331f230c2bf279de35ffe4490802861aa99aaa54ddc66742ed71656e6018a306dd5050a1d71822438212616e71b62924d97de3d6e52a0ec983dfe94e1fe5a2ed7b69c2d92c529f9849f3b0083db7b73b7d5e3cb3d1ee7e731ddc7da0e56553247653a896eeacbd20297f2162f2b0778344dcd65dd4c65fe1758d276343fb7c12ad474593fdcc6ec9f7ee432dc99e8c69da35e8d2111729efbe3e7b559299a2db0ba779ce1682356d1e6227cad2bcf198fef7cc1df825d467b72043e95a58dafef2b7284e6f3f33ad95e6f6181ec6ec3e2d0c0660c8dacaa3a25388bfff1a6e1cbed4cf1e0d169c330fc23cbc87cdb106b789595852956a389dceae0fbae804f53c06316eada6fe015aa01b25374f4cb0921205ef253dced803a86e3ae39fbabd5d033a8b9481c77f97848672bc57015495f4aca23524fdd9b417c4c9ec23cf71b8c75708135bff9462732aeb692c0a7c3af5720c8df3b1f079cddf55ae82ecad4123ae9035c55333098294ee9bb6569d0643626493a9e3590fa025d924f5034eaee79e85bf1dafb06652bea7f2455854e90600a6a3e8e6ebce503dea7ef8ff28ed5c29381ca90fbf76121447c054005f10986cb981cb356ec60657699eafbdcf3d45a3401fe87b96c438173a4995ad79910f141495f35d147ad79fc24deeda83dacb0249149408d9761ebd3a055566d6741df6307cd1440afce578625e5c631cdc1cd4a2042dfaecd3e34f02</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Para ver el contenido utiliza la flag del reto HTB{...}</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls"
                 data-autoplay="false">
@@ -259,13 +181,6 @@ while True:
             </div>
             
             
-            
-            <div class="box sticky animated fadeInRight faster">
-                <div id="toc" class="subbox">
-                    <h4>Contents</h4>
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Analizar-el-codigo"><span class="toc-number">1.</span> <span class="toc-text">Analizar el código</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Elaborar-el-exploit"><span class="toc-number">2.</span> <span class="toc-text">Elaborar el exploit</span></a></li></ol>
-                </div>
-            </div>
             
             
         </div>
