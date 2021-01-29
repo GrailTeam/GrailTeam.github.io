@@ -20,7 +20,13 @@
       
         <tags>
             
-            <tag> htb, AES, CBC, bit-flipping </tag>
+            <tag> htb </tag>
+            
+            <tag> AES </tag>
+            
+            <tag> CBC </tag>
+            
+            <tag> bit-flipping </tag>
             
         </tags>
       
